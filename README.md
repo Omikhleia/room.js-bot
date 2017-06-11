@@ -14,6 +14,7 @@ The RoomJS bot requires **Node.js 6.0** or newer.
 1. Clone the repository or download a ZIP archive.
 2. Install **room.js** referring to its documentation, then launch the server
 3. Connect to the game and create a user account and character
+4. Move your character to the room you want the bot to be in, and 'quit'
 
 ## Installation
 
@@ -23,7 +24,7 @@ Installation steps are straightforward:
 2. User environment variables and/or create a `.env` file to customize the bot's configuration. Read carefully `.env.development` for examples and explanations.
 3. `yarn start`
 
-The bot should connect to your game and enter your world.
+The bot should connect to your game and enter your world, in the room it previously left.
 
 To kill the bot, hit Ctrl-C or send a SIGINT or SIGTERM signal to its process. These are intercepted to ensure a grateful exit and saving persistent data (see below).
 
