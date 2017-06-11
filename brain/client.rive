@@ -1,0 +1,22 @@
+// Very basic stuff for now. To be improved
+
++ (hello|hi|greetings)
+- Hi
+
+
+
++ have a beer
+- [order ale]
+
++ (i am|call me|my name is) *
+* <get name> != undefined => You told me your name was <get name>.
+- Aye, <set name=<formal>><get name>.
+
++ (what is my name|who am i|do you know my name)
+* <get name> == undefined => You never told me your name.
+- Your name is <get name>.
+- You told me your name is <get name>.
+- Aren't you <get name>?
+
++ *
+- ERR
