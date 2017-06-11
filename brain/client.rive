@@ -9,8 +9,9 @@
 - [order ale]
 
 + (i am|call me|my name is) *
+* <get name> == {formal}<star2>{/formal} => I know.
 * <get name> != undefined => You told me your name was <get name>.
-- Aye, <set name=<formal>><get name>.
+- Aye, <set name={formal}<star2>{/formal}><get name>.
 
 + (what is my name|who am i|do you know my name)
 * <get name> == undefined => You never told me your name.
