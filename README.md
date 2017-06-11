@@ -21,12 +21,12 @@ The RoomJS bot requires **Node.js 6.0** or newer.
 Installation steps are straightforward:
 
 1. `yarn install`
-2. User environment variables and/or create a `.env` file to customize the bot's configuration. Read carefully `.env.development` for examples and explanations.
+2. Use environment variables and/or create a `.env` file to customize the bot's configuration. Read carefully `.env.development` for examples and explanations.
 3. `yarn start`
 
 The bot should connect to your game and enter your world, in the room it previously left.
 
-To kill the bot, hit Ctrl-C or send a SIGINT or SIGTERM signal to its process. These are intercepted to ensure a grateful exit and saving persistent data (see below).
+To kill the bot, hit Ctrl-C or send a SIGINT or SIGTERM signal to its process. These are intercepted to ensure a graceful exit and saving persistent data (see below).
 
 ## Configuration
 
@@ -39,7 +39,7 @@ The first time, however, you will want to configure your bot. Hit Ctrl-C to abor
 
 They are used to store persisting knowledge, respectively about the bot itself (i.e. "bot variables" in RiveScript terminology) and the users it previously discussed with (i.e. "user variables"). Obviously, when found, these files are also loaded on start-up, allowing the bot to remember previously acquired knowledge and states.
 
-Edit the bot variables according to your needs. The name property is the only one that cannot be changed, as it is overwritten at start-up with the character name. All other properties are assumed to be strings, that can be used afterwards in your RiveScript dialogs (with `<bot>` tags).
+Edit the bot variables according to your needs. The name property is the only one that cannot be changed, as it is overwritten at start-up with the actual character name. All other properties are assumed to be strings, that can be used afterwards in your RiveScript dialogs (with `<bot>` tags).
 
 Normally, you shouldn't have to edit the user variables, unless you want to clear all past memories -- in that case, empty the JSON structure (i.e. set it to an empty object `{}`).
 
@@ -48,7 +48,7 @@ Normally, you shouldn't have to edit the user variables, unless you want to clea
 Dialogs are described in RiverScript language.
 
 * The main dialogs are defined using a set of *.rive* files in the *brain/* folder.
-* You may additionnaly place a subfolder *brain/* under the bot's data folder (besides the JSON save file), to load additional rules specific to that bot. This may be used, for instance, to implement quest-specific dialogs that only one bot would know.
+* You may additionnaly place a subfolder *brain/* under the bot's data folder (besides the JSON save files), to load additional rules specific to that peculiar bot. This may be used, for instance, to implement quest-specific dialogs, that only one bot would know.
 
 In extension to RiveScript, in responses from the bot, square-bracketed strings are interpreted as raw in-game commands, while regular text is interpreted as utterances (i.e. "say" commands). This allows the bot to perform some actions, e.g. assuming the following rule is defined:
 
@@ -57,7 +57,7 @@ In extension to RiveScript, in responses from the bot, square-bracketed strings 
   - [look <id>] Heh!
 ```
 
-Then if a player in the bot's room says "look me" or "look at me", it will trigger the bot to look at him/her and then to utter "Heh!"
+Then if a player in the bot's room says "look me" or "look at me", it will trigger the bot to look at him/her and utter "Heh!"
 
 ## License : MIT
 
