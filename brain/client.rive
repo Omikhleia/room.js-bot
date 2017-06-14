@@ -1,9 +1,10 @@
 // Very basic stuff for now. To be improved
 
 + (hello|hi|greetings)
-- Hi
-
-
+- Hello.
+- Greetings!
+- Hi.
+- Cheers.
 
 + have a beer
 - [order ale]

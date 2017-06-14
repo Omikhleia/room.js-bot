@@ -45,7 +45,7 @@ Normally, you shouldn't have to edit the user variables, unless you want to clea
 
 ### Dialogs
 
-Dialogs are described in RiverScript language.
+Dialogs are described in RiveScript language.
 
 * The main dialogs are defined using a set of *.rive* files in the *brain/* folder.
 * You may additionnaly place a subfolder *brain/* under the bot's data folder (besides the JSON save files), to load additional rules specific to that peculiar bot. This may be used, for instance, to implement quest-specific dialogs, that only one bot would know.
@@ -59,11 +59,4 @@ In extension to RiveScript, in responses from the bot, square-bracketed strings 
 
 Then if a player in the bot's room says "look me" or "look at me", it will trigger the bot to look at him/her and utter "Heh!"
 
-## License : MIT
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+These files are watched for changes, so if you edit them on disk, the bot will be reloaded.
