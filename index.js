@@ -15,7 +15,7 @@ const config = {
   appName: pkg.name
 }
 
-if (config.username && config.password) {
+if (config.username && config.password && config.character) {
   const { appName, logLevel } = config
   const logger = bunyan.createLogger({ name: appName, level: logLevel })
   const client = new RoomJSBot(logger, config)

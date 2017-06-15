@@ -1,0 +1,13 @@
+// Calls
+
++ do you have [a|an|the] *
+* <call>checkInventory <star></call> == exact => {random}
+^ Sure|
+^ I do|
+^ Aye{/random}
+* <bot callcontext> == nomatch => {random}
+^ No|
+^ Nay|
+^ Nope|
+^ I don't{/random}
+- Seems I have some <bot callcontext>.
