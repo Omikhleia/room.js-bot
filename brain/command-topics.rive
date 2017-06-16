@@ -1,0 +1,18 @@
+// This file is for customizing replies to commands (not dialogs)
+// via RiveScript.
+// The conversation code will normally immediately return to the
+// previous topic after a response is triggered.
+
+> topic commands
+  + enters
+  * <get name> != undefined => {random}
+  ^ That good old <get name>.|
+  ^ Hey, <get name>...{/random}
+  - Newcomers are welcome.
+  - Stangers are welcome.
+  - [look <id>] Who's that.
+
+  // Catch all (just in case something went really wrong...)
+  + *
+  - [chat Help me, i'm a broken bot.]
+< topic
