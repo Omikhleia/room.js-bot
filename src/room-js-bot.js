@@ -13,6 +13,7 @@ const RiveScript = require('rivescript')
 const RoomJSClient = require('./room-js-client')
 const onExit = require('./on-exit')
 const ConversationHandler = require('./conversation-handler')
+const DelayedQueue = require('./delayed-queue')
 const utils = require('./utils')
 
 class RoomJSBot extends RoomJSClient {
@@ -23,7 +24,9 @@ class RoomJSBot extends RoomJSClient {
                                 // Select 1st character until pull request #162
                                 // approved on game engine
     this.context = {}
-
+    this.queue = new DelayedQueue(800) // Bot typing speed in chars per minute
+                                       // 200-300 CPM is fast for humans,
+                                       // but slow for bots...
     this.setupBot((success) => {
       if (success) {
         chokidar.watch(['brain', path.join('bot-data', this.config.username, 'brain')],
@@ -117,6 +120,10 @@ class RoomJSBot extends RoomJSClient {
     this.loadSync()
     onExit(() => this.saveSync())
     super.setupClient()
+
+    this.queue.on('data', (message) => {
+      this.send(message)
+    })
   }
 
   /* extend */
@@ -158,7 +165,7 @@ class RoomJSBot extends RoomJSClient {
              // Keep track of our own quit command
             this.selfQuitFlag = true
           }
-          this.socket.emit('input', reply)
+          this.queue.push(reply)
         })
       }
     }

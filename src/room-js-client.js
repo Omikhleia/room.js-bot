@@ -70,6 +70,10 @@ class RoomJSClient {
     // To be extended by derived objects for specific behavior
   }
 
+  send (msg) {
+    this.socket.emit('input', msg)
+  }
+
   onOutput (msg) {
     // To be extended by derived objects for specific behavior
     if (this.state !== 'playing') {
