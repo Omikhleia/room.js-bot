@@ -7,13 +7,13 @@ const stripAnsi = require('strip-ansi')
 
 class ConversationHandler {
   constructor (bot, logger) {
-    this.bot = bot;
-    this.logger = logger;
+    this.bot = bot
+    this.logger = logger
     this.patterns = [
-      { expr: /^(.*) (enters)\./i, 
+      { expr: /^(.*) (enters)\./i,
         action: this.onCommand.bind(this) },
       { expr: /^(.*) says "(.*)"/i,
-        action: this.onUtterance.bind(this) },
+        action: this.onUtterance.bind(this) }
     ]
   }
 
@@ -28,15 +28,15 @@ class ConversationHandler {
       return false
     })
   }
-  
-  onCommand(arg, fn) {
+
+  onCommand (arg, fn) {
     const user = arg[1]
     const prevtopic = this.bot.getUservar(user, 'topic')
 
     this.bot.setUservar(user, 'topic', 'commands')
 
     this.onUtterance(arg, fn)
-    
+
     if (prevtopic === 'commands') {
       // Failsafe, never stay in command topic...
       this.bot.setUservar(user, 'topic', 'random')
@@ -44,21 +44,21 @@ class ConversationHandler {
       this.bot.setUservar(user, 'topic', prevtopic)
     }
   }
-  
-  onUtterance(arg, fn) {
+
+  onUtterance (arg, fn) {
     const user = arg[1]
     const message = stripAnsi(arg[2])
-    
+
     var reply = this.bot.reply(user, message)
 
     if (reply.search(/ERR/) === -1) {
-      //Split commands and utterance, respecting order
+      // Split commands and utterance, respecting order
       let splits = reply.match(/\[[^\]]*\]|[^[\]]+/g)
       if (splits) {
         splits.forEach(str => {
           if (str.lastIndexOf('[') !== -1) {
             let command = str.replace('[', '').replace(']', '').trim()
-            if (command.length ) {
+            if (command.length) {
               fn(command)
             }
           } else {

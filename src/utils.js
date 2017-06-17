@@ -3,7 +3,7 @@
  *
  * Small pattern matching utilities.
  */
-function match(name, search) {
+function match (name, search) {
   if (search === undefined) {
     return 'nomatch'
   }
@@ -22,7 +22,7 @@ function match(name, search) {
   return 'nomatch'
 }
 
-function lookup(list, search) {
+function lookup (list, search) {
   let found = 'nomatch'
   if (list) {
     for (let item of list) {

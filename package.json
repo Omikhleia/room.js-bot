@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "node --use_strict --harmony index.js | ./node_modules/.bin/bunyan",
+    "lint": "./node_modules/.bin/standard src/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -25,5 +26,8 @@
     "rivescript": "^1.17.2",
     "socket.io-client": "^2.0.2",
     "strip-ansi": "^3.0.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
   }
 }

@@ -19,7 +19,7 @@ class RoomJSBot extends RoomJSClient {
   constructor (logger, config) {
     super(logger, config)
 
-    this.config.selection = '1' // FIXME 
+    this.config.selection = '1' // FIXME
                                 // Select 1st character until pull request #162
                                 // approved on game engine
     this.context = {}
@@ -35,8 +35,8 @@ class RoomJSBot extends RoomJSClient {
     })
   }
 
-  setupBot(callback) {
-    this.bot = new RiveScript({ 
+  setupBot (onDone) {
+    this.bot = new RiveScript({
       debug: this.config.logLevel === 'trace',
       onDebug: this.onBotDebug.bind(this)
     })
@@ -64,10 +64,10 @@ class RoomJSBot extends RoomJSClient {
       this.bot.setVariable('callcontext', found)
       return found
     })
-    
+
     this.bot.setSubroutine('checkPlayers', (scope, star) => {
       const name = star[0]
-      let found = "undefined"
+      let found = 'undefined'
       if (this.context.players) {
         for (let player of this.context.players) {
           if (name.toLowerCase() === player.name.toLowerCase()) {
@@ -81,57 +81,57 @@ class RoomJSBot extends RoomJSClient {
     })
 
     this.bot.setSubroutine('getRoomName', () => {
-      const room = this.context.room ? this.context.room : "undefined"
+      const room = this.context.room ? this.context.room : 'undefined'
       return room
     })
 
     this.conversation = new ConversationHandler(this.bot, this.logger)
-    
+
     this.bot.loadDirectory('brain',
-      batch_num => {
-        this.logger.debug(`main brain loaded (${batch_num})`)
+      batchNum => {
+        this.logger.debug(`main brain loaded (${batchNum})`)
         this.bot.sortReplies()
-        
+
         this.bot.loadDirectory(path.join('bot-data', this.config.username, 'brain'),
-          batch_num => {
-            this.logger.debug(`specific brain loaded (${batch_num})`)
+          batchNum => {
+            this.logger.debug(`specific brain loaded (${batchNum})`)
             this.bot.sortReplies()
-            callback(true)
+            onDone(true)
           },
           error => {
             // Bots may not have a specific brain, so debug only
             this.logger.debug({ error }, 'specific brain error')
-            callback(true)
+            onDone(true)
           }
         )
       },
       error => {
         this.logger.warn({ error }, 'main brain error')
-        callback(false)
+        onDone(false)
       }
     )
   }
 
   /* extend */
-  setupClient() {
-    this.loadSync()       
+  setupClient () {
+    this.loadSync()
     onExit(() => this.saveSync())
     super.setupClient()
   }
 
   /* extend */
-  closeClient() {
+  closeClient () {
     this.saveSync()
     super.closeClient()
   }
 
-  onBrainChanged(event, file) {
+  onBrainChanged (event, file) {
     this.logger.debug(`bot reloading on file ${event} (${file})`)
     this.saveSync()
-    
+
     this.setupBot((success) => {
       this.loadSync()
-      
+
       if (success) {
         this.logger.info('bot reloaded (brain change)')
       } else {
@@ -140,10 +140,10 @@ class RoomJSBot extends RoomJSClient {
     })
   }
 
-  /* extend */ 
-  onOutput(msg) {
+  /* extend */
+  onOutput (msg) {
     super.onOutput(msg)
-    
+
     if (typeof msg === 'object') {
       // Support for extented game worlds with JSON payloads.
       this.logger.debug('context updated')
@@ -151,12 +151,12 @@ class RoomJSBot extends RoomJSClient {
       msg = msg.text ? msg.text : msg
     }
 
-    if (this.state === 'playing') {      
+    if (this.state === 'playing') {
       if (typeof msg === 'string') {
         this.conversation.process(msg, reply => {
           if (reply.lastIndexOf('quit') === 0) {
              // Keep track of our own quit command
-             this.selfQuitFlag = true
+            this.selfQuitFlag = true
           }
           this.socket.emit('input', reply)
         })
@@ -165,26 +165,26 @@ class RoomJSBot extends RoomJSClient {
   }
 
   /* override */
-  onSetPrompt(str) {
+  onSetPrompt (str) {
     this.logger.debug('setprompt', `- setprompt ${str}`)
     this.bot.setVariable('name', str)
   }
 
-  onBotDebug(message) {
+  onBotDebug (message) {
     this.logger.trace({ message }, 'bot debug')
   }
 
-  saveSync() {
+  saveSync () {
     this.saveBotSync(`bot-data/${this.config.username}`, 'botvars.json')
     this.saveUsersSync(`bot-data/${this.config.username}`, 'uservars.json')
   }
 
-  loadSync() {
+  loadSync () {
     this.loadBotSync(`bot-data/${this.config.username}`, 'botvars.json')
     this.loadUsersSync(`bot-data/${this.config.username}`, 'uservars.json')
   }
 
-  saveUsersSync(dirname, filename) {
+  saveUsersSync (dirname, filename) {
     const filepath = path.join(dirname, filename)
     const contents = `${JSON.stringify(this.bot.getUservars(), null, '  ')}\n`
 
@@ -193,7 +193,7 @@ class RoomJSBot extends RoomJSClient {
     this.logger.debug('user variables saved')
   }
 
-  loadUsersSync(dirname, filename) {
+  loadUsersSync (dirname, filename) {
     const filepath = path.join(dirname, filename)
     try {
       const contents = JSON.parse(fs.readFileSync(filepath))
@@ -201,13 +201,12 @@ class RoomJSBot extends RoomJSClient {
         this.bot.setUservars(user, contents[user])
       })
       this.logger.debug('user variables retrieved')
-
     } catch (error) {
       this.logger.warn({ error: error.message }, 'user variables could not be retrieved')
     }
   }
 
-  saveBotSync(dirname, filename) {
+  saveBotSync (dirname, filename) {
     const filepath = path.join(dirname, filename)
     const contents = `${JSON.stringify(this.bot.deparse().begin.var, null, '  ')}\n`
 
@@ -216,7 +215,7 @@ class RoomJSBot extends RoomJSClient {
     this.logger.debug('bot variables saved')
   }
 
-  loadBotSync(dirname, filename) {
+  loadBotSync (dirname, filename) {
     const filepath = path.join(dirname, filename)
     try {
       const contents = JSON.parse(fs.readFileSync(filepath))
@@ -224,7 +223,6 @@ class RoomJSBot extends RoomJSClient {
         this.bot.setVariable(variable, contents[variable])
       })
       this.logger.debug('bot variables retrieved')
-
     } catch (error) {
       this.logger.warn({ error: error.message }, 'bot variables could not be retrieved')
     }

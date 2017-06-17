@@ -1,3 +1,9 @@
+/* 2017 Doughsay
+ * License: MIT
+ *
+ * Exit handlers.
+ * (Code taken from the RoomJS game engine)
+ */
 const callbacks = []
 
 function cleanup (code) {
