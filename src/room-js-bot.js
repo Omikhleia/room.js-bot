@@ -9,10 +9,8 @@ const mkdirp = require('mkdirp')
 const chokidar = require('chokidar')
 
 const RiveScript = require('rivescript')
-const stripAnsi = require('strip-ansi')
 
 const RoomJSClient = require('./room-js-client')
-
 const onExit = require('./on-exit')
 const ConversationHandler = require('./conversation-handler')
 const utils = require('./utils')

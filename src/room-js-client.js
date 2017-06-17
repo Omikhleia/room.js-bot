@@ -8,6 +8,7 @@
  * Methods marked as 'to be overriden' should be implemented in subclass.
  */
 const io = require('socket.io-client')
+const stripAnsi = require('strip-ansi')
 
 class RoomJSClient {
   constructor (logger, config) {

@@ -6,7 +6,7 @@
 const bunyan = require('bunyan')
 const dotenv = require('dotenv')
 
-const RoomJSBot = require('./lib/room-js-bot')
+const RoomJSBot = require('./src/room-js-bot')
 const pkg = require('./package.json')
 
 dotenv.config()
