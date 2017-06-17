@@ -1,2 +1,7 @@
+// Triggers specific to that bot.
+
 + look [at] me
 - [look <id>] Heh!
+
++ have a beer
+- [order ale]

@@ -1,0 +1,34 @@
+// Dynamic knowledge about ourself.
+// In order to work, this requires an extented game world with JSON payload
+// support. External calls (<call>) are used to retrieve the game context:
+// - checkInventory checks for a pattern in the bot's inventory,
+// - checkRoom checks for a pattern in the bot's location,
+// - getRoomName returns the bot's location.
+// - checkPlayers checks for a name in the players in the bot's location.
+
++ do you have [a|an|the] *
+* <call>checkInventory <star></call> == exact => {random}
+^ Sure|
+^ I do|
+^ Aye{/random}
+* <bot callcontext> == nomatch => {random}
+^ No|
+^ Nay|
+^ Nope|
+^ I don't{/random}
+- Seems I have some <bot callcontext>.
+- I've some <bot callcontext>.
+
++ where are you
+- <call>getRoomName</call>
+
++ who is *
+* <bot name> == <formal> => Me.
+* <get name> == <formal> => You.
+* <call>checkPlayers <star></call> == undefined => {random}
+^ Dunno.|
+^ No you?|
+^ Someone?{/random}
+- <bot callcontext> is just here.
+- [look <bot callcontext>] Here.
+- Someone here.

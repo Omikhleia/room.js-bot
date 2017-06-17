@@ -6,9 +6,6 @@
 - Hi.
 - Cheers.
 
-+ have a beer
-- [order ale]
-
 + (i am|call me|my name is) *
 * <get name> == {formal}<star2>{/formal} => I know.
 * <get name> != undefined => You told me your name was <get name>.
