@@ -1,10 +1,15 @@
+/* 2017 Omikhleia
+ * License: MIT
+ *
+ * RoomJS bot main.
+ */
 const bunyan = require('bunyan')
 const dotenv = require('dotenv')
 
 const RoomJSBot = require('./lib/room-js-bot')
+const pkg = require('./package.json')
 
 dotenv.config()
-const pkg = require('./package.json')
 const config = {
   username: process.env.BOT_USER,
   password: process.env.BOT_PASSWORD,
@@ -15,11 +20,12 @@ const config = {
   appName: pkg.name
 }
 
+const { appName, logLevel } = config
+const logger = bunyan.createLogger({ name: appName, level: logLevel })
+
 if (config.username && config.password && config.character) {
-  const { appName, logLevel } = config
-  const logger = bunyan.createLogger({ name: appName, level: logLevel })
   const client = new RoomJSBot(logger, config)
 } else {
-  console.log("Credentials missing from environment configuration");
+  this.logger.fatal("Credentials missing from environment configuration");
   process.exit(1);
 }
