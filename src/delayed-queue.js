@@ -19,6 +19,7 @@ class DelayedQueue extends EventEmitter {
 
   push (element) {
     this.queue.push(element)
+    this.emit('queued')
     this.schedule()
   }
 

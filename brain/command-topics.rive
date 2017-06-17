@@ -12,6 +12,12 @@
   - Stangers are welcome.
   - [look <id>] Who's that.
 
+  + pings
+  - Uh?
+  - Well...
+  - Er...
+  - So...
+  
   // Catch all (just in case something went really wrong...)
   + *
   - [chat Help me, i'm a broken bot.]

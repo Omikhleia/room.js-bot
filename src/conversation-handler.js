@@ -12,6 +12,8 @@ class ConversationHandler {
     this.patterns = [
       { expr: /^(.*) (enters)\./i,
         action: this.onCommand.bind(this) },
+      { expr: /^(.*) (pings)/i,
+        action: this.onCommand.bind(this) },
       { expr: /^(.*) says "(.*)"/i,
         action: this.onUtterance.bind(this) }
     ]

@@ -16,6 +16,8 @@ const config = {
   character: process.env.BOT_CHARACTER,
   address: process.env.ADDRESS || '127.0.0.1',
   port: process.env.PORT || '8888',
+  inactivity: parseInt(process.env.BOT_INACTIVITY) || 60000,
+  speed: parseInt(process.env.BOT_CPM) || 800,
   logLevel: process.env.LOG_LEVEL || 'info',
   appName: pkg.name
 }
@@ -26,6 +28,6 @@ const logger = bunyan.createLogger({ name: appName, level: logLevel })
 if (config.username && config.password && config.character) {
   const client = new RoomJSBot(logger, config)
 } else {
-  this.logger.fatal("Credentials missing from environment configuration");
-  process.exit(1);
+  this.logger.fatal('Credentials missing from environment configuration')
+  process.exit(1)
 }

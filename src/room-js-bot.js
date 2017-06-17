@@ -24,9 +24,9 @@ class RoomJSBot extends RoomJSClient {
                                 // Select 1st character until pull request #162
                                 // approved on game engine
     this.context = {}
-    this.queue = new DelayedQueue(800) // Bot typing speed in chars per minute
-                                       // 200-300 CPM is fast for humans,
-                                       // but slow for bots...
+    this.inactivityTimer = null
+    this.queue = new DelayedQueue(this.config.speed)
+
     this.setupBot((success) => {
       if (success) {
         chokidar.watch(['brain', path.join('bot-data', this.config.username, 'brain')],
@@ -123,6 +123,22 @@ class RoomJSBot extends RoomJSClient {
 
     this.queue.on('data', (message) => {
       this.send(message)
+    })
+    this.queue.on('empty', () => {
+      if (this.inactivityTimer) {
+        clearTimeout(this.inactivityTimer)
+        this.inactivityTimer = null
+      }
+      this.inactivityTimer = setTimeout(() => {
+        this.logger.trace('inactivity timeout')
+        this.onOutput('system pings.')
+      }, this.config.inactivity)
+    })
+    this.queue.on('queued', () => {
+      if (this.inactivityTimer) {
+        clearTimeout(this.inactivityTimer)
+        this.inactivityTimer = null
+      }
     })
   }
 
