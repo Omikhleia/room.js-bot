@@ -1,6 +1,6 @@
 {
   "name": "rjs-bot",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Omikhleia",
   "description": "A conversational bot for Room.JS",
   "repository": "https://github.com/omikhleia/room.js-bot",

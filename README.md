@@ -1,27 +1,32 @@
 # room.js-bot
 RoomJS conversational bot
 
-**Alpha version - Work in Progress**
-
-This is an _experimental_ bot for Doughsay's [Room.JS](https://github.com/doughsay/room.js) MOO/MUD game engine.
+This is a bot template for Doughsay's [Room.JS](https://github.com/doughsay/room.js) MOO/MUD game engine.
 
 The bot relies on [RiveScript](https://www.rivescript.com/docs/tutorial) for its conversational capabilities.
+
+## Features
+
+* The bot keeps some persistent knowledge about itself.
+* The bot gathers persisent knowledge about the players.
+* On [extended](https://github.com/Omikhleia/room.js-ng2-cli) game worlds, the bots has some knowledge regarding its environment (inventory, room, players).
+* Beyond that, the conversational capabilities in this template are limited. It is up to you to add additional conversation rules.
 
 ## Prerequisites
 
 The RoomJS bot requires **Node.js 6.0** or newer.
 
 1. Clone the repository or download a ZIP archive.
-2. Install **room.js** referring to its documentation, then launch the server
-3. Connect to the game and create a user account and character
-4. Move your character to the room you want the bot to be in, and 'quit'
+2. Install **room.js** referring to its documentation, then launch the server.
+3. Connect to the game and create a user account and character.
+4. Move your character to the room you want the bot to be in, and 'quit'.
 
 ## Installation
 
 Installation steps are straightforward:
 
 1. `yarn install`
-2. Use environment variables and/or create a `.env` file to customize the bot's configuration. Read carefully `.env.development` for examples and explanations.
+2. Use environment variables and/or create a `.env` file to customize the bot's configuration. Read **carefully** `.env.development` for examples and explanations.
 3. `yarn start`
 
 The bot should connect to your game and enter your world, in the room it previously left.
@@ -32,14 +37,14 @@ To kill the bot, hit Ctrl-C or send a SIGINT or SIGTERM signal to its process. T
 
 ### Variables
 
-The first time, however, you will want to configure your bot. Hit Ctrl-C to abort the bot, as this will generate its save files. Two JSON files are generated in a folder corresponding to its account name and located below *bot-data/*
+The first time, however, you will want to configure your bot. Hit Ctrl-C to abort the bot, as this will generate its save files. Two JSON files are generated in a folder corresponding to its character name and located below *bot-data/*
 
 * **botvars.json**
 * **uservars.json**
 
 They are used to store persisting knowledge, respectively about the bot itself (i.e. "bot variables" in RiveScript terminology) and the users it previously discussed with (i.e. "user variables"). Obviously, when found, these files are also loaded on start-up, allowing the bot to remember previously acquired knowledge and states.
 
-Edit the bot variables according to your needs. The name property is the only one that cannot be changed, as it is overwritten at start-up with the actual character name. All other properties are assumed to be strings, that can be used afterwards in your RiveScript dialogs (with `<bot>` tags).
+Edit the bot variables according to your needs. The 'name' and 'callcontext' properties are the only ones that cannot be changed. The former is overwritten at start-up with the actual character name; the latter is updated by dynamic scripts. All properties are assumed to be strings, that can be used afterwards in your RiveScript dialogs (with `<bot>` tags).
 
 Normally, you shouldn't have to edit the user variables, unless you want to clear all past memories -- in that case, empty the JSON structure (i.e. set it to an empty object `{}`).
 
@@ -59,4 +64,6 @@ In extension to RiveScript, in responses from the bot, square-bracketed strings 
 
 Then if a player in the bot's room says "look me" or "look at me", it will trigger the bot to look at him/her and utter "Heh!"
 
-These files are watched for changes, so if you edit them on disk, the bot will be reloaded.
+Replies containing "ERR" are ignored.
+
+The RiveScript files are watched for changes, so if you edit them on disk, the bot will be reloaded.
