@@ -26,10 +26,11 @@ class RoomJSBot extends RoomJSClient {
     this.context = {}
     this.inactivityTimer = null
     this.queue = new DelayedQueue(this.config.speed)
+    this.prefix = path.join('bot-data', this.config.character.toLowerCase())
 
     this.setupBot((success) => {
       if (success) {
-        chokidar.watch(['brain', path.join('bot-data', this.config.username, 'brain')],
+        chokidar.watch(['brain', path.join(this.prefix, 'brain')],
                        { depth: 1, ignoreInitial: true })
           .on('all', this.onBrainChanged.bind(this))
           .on('error', error => this.logger.debug(`watcher error ${error}`))
@@ -95,7 +96,7 @@ class RoomJSBot extends RoomJSClient {
         this.logger.debug(`main brain loaded (${batchNum})`)
         this.bot.sortReplies()
 
-        this.bot.loadDirectory(path.join('bot-data', this.config.username, 'brain'),
+        this.bot.loadDirectory(path.join(this.prefix, 'brain'),
           batchNum => {
             this.logger.debug(`specific brain loaded (${batchNum})`)
             this.bot.sortReplies()
@@ -198,13 +199,13 @@ class RoomJSBot extends RoomJSClient {
   }
 
   saveSync () {
-    this.saveBotSync(`bot-data/${this.config.username}`, 'botvars.json')
-    this.saveUsersSync(`bot-data/${this.config.username}`, 'uservars.json')
+    this.saveBotSync(this.prefix, 'botvars.json')
+    this.saveUsersSync(this.prefix, 'uservars.json')
   }
 
   loadSync () {
-    this.loadBotSync(`bot-data/${this.config.username}`, 'botvars.json')
-    this.loadUsersSync(`bot-data/${this.config.username}`, 'uservars.json')
+    this.loadBotSync(this.prefix, 'botvars.json')
+    this.loadUsersSync(this.prefix, 'uservars.json')
   }
 
   saveUsersSync (dirname, filename) {
