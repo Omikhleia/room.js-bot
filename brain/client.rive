@@ -1,4 +1,6 @@
-// Very basic stuff for now. To be improved
+// Very basic conversation stuff.
+
+// -- Greetings
 
 + (hello|hi|greetings)
 - Hello.
@@ -6,19 +8,31 @@
 - Hi.
 - Cheers.
 
-+ (i am|call me|my name is) *
-* <get name> == {formal}<star2>{/formal} => I know.
-* <get name> != undefined => You told me your name was <get name>.
-- Aye, <set name={formal}<star2>{/formal}><get name>.
++ (hello|hi|greetings) <bot name>
+@ hello
 
-+ (what is my name|who am i|do you know my name)
-* <get name> == undefined => You never told me your name.
-- Your name is <get name>.
-- You told me your name is <get name>.
-- Aren't you <get name>?
+// -- Catch useless words
 
-+ forget me
-- Ok. <set name=undefined>
++ * then
+- <@>
+
++ so *
+- <@>
+
+// -- Handle repetitions 
+
+// If the user keeps repeating themselves over and over.
++ <input1>{weight=100}
+* <input1> == <input4> => ERR
+* <input1> == <input3> => Nevermind.
+* <input1> == <input2> => *shuggers*
+- Again?
+
++ why did you say that
+- Because you said: <input>
+
++ what did you say
+- <reply>
 
 + *
 - ERR

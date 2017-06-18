@@ -33,5 +33,5 @@
 + what do you look like
 - I have <bot eyes> eyes and <bot hairlen> <bot hair> hair.
 
-+ what do you do
++ (what do you do|what are you doing)
 - I'm a <bot job>.

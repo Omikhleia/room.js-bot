@@ -1,0 +1,74 @@
+// Knowledge about the player.
+
++ (call me|my name is) *
+* <bot name> == {formal}<star2>{/formal} => No. I am.
+* <get name> == {formal}<star2>{/formal} => I know.
+* <get name> != undefined => You told me your name was <get name>.
+- Aye, <set name={formal}<star2>{/formal}><get name>.
+
++ i am _
+@ call me <star>
+
++ (what is my name|who am i|do you know my name|do you know who i am)
+* <get name> == undefined => You never told me your name.
+- Your name is <get name>.
+- You told me your name is <get name>.
+- Aren't you <get name>?
+
++ forget me
+- Ok. <set name=undefined>
+
++ i am # years old
+- <set age=<star>>A lot of people are <get age>, you're not alone.
+- <set age=<star>>Cool, I'm <bot age> myself.{weight=49}
+
++ i am #
+@ i am <star> years old
+
++ i am a (@malenoun)
+- <set sex=male>Alright, you're a <star>.
+
++ i am a (@femalenoun)
+- <set sex=female>Alright, you're female.
+
++ i (am from|live in) *
+- <set location={formal}<star2>{/formal}>I've spoken to people from <get location> before.
+
++ my favorite * is *
+- <set fav<star1>=<star2>>Why is it your favorite?
+
++ i am single
+- <set status=single><set spouse=nobody>I am too.
+
++ i have a girlfriend
+- <set status=girlfriend>What's her name?
+
++ i have a boyfriend
+- <set status=boyfriend>What's his name?
+
++ *
+% what is her name
+- <set spouse=<formal>>That's a pretty name.
+
++ *
+% what is his name
+- <set spouse=<formal>>That's a cool name.
+
++ my (girlfriend|boyfriend)* name is *
+- <set spouse=<formal>>That's a nice name.
+
++ (how old am i|do you know how old i am|do you know my age){weight=10}
+- You are <get age> years old.
+- You're <get age>.
+
++ am i a (@malenoun) or a (@femalenoun){weight=10}
+- You're a <get sex>.
+
++ am i (@malenoun) or (@femalenoun){weight=10}
+- You're a <get sex>.
+
++ what is my favorite *{weight=10}
+- Your favorite <star> is <get fav<star>>
+
++ who is my (boyfriend|girlfriend|spouse){weight=10}
+- <get spouse>
