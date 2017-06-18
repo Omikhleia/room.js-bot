@@ -1,4 +1,7 @@
 # room.js-bot
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 RoomJS conversational bot
 
 This is a bot template for Doughsay's [Room.JS](https://github.com/doughsay/room.js) MOO/MUD game engine.
