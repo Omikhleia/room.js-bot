@@ -28,6 +28,6 @@ const logger = bunyan.createLogger({ name: appName, level: logLevel })
 if (config.username && config.password && config.character) {
   const client = new RoomJSBot(logger, config)
 } else {
-  this.logger.fatal('Credentials missing from environment configuration')
+  logger.fatal('Credentials missing from environment configuration')
   process.exit(1)
 }
