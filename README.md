@@ -1,6 +1,7 @@
 # room.js-bot
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![dependencies Status](https://david-dm.org/omikhleia/room.js-bot/status.svg)](https://david-dm.org/omikhleia/room.js-bot)
 
 RoomJS conversational bot
 
@@ -11,8 +12,8 @@ The bot relies on [RiveScript](https://www.rivescript.com/docs/tutorial) for its
 ## Features
 
 * The bot keeps some persistent knowledge about itself.
-* The bot gathers persisent knowledge about the players.
-* On [extended](https://github.com/Omikhleia/room.js-ng2-cli) game worlds, the bots has some knowledge regarding its environment (inventory, room, players).
+* The bot gathers persistent knowledge about the players.
+* On [extended](https://github.com/Omikhleia/room.js-ng2-cli) game worlds, the bot has some knowledge regarding its environment (inventory, room, players).
 * Beyond that, the conversational capabilities in this template are limited. It is up to you to add additional conversation rules.
 
 ## Prerequisites
